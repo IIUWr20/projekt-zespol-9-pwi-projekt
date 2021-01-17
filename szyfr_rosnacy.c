@@ -12,7 +12,10 @@ int main()
         //Sprawdzamy czy nie powrocilismy do pierwotnej litery
         if(wartosc==27)
             wartosc = 1;
-
+        if(znak=='\n')
+        {
+            wartosc--;
+        }
         //Sprawdzamy czy nasz znak jest duza litera
         if(znak >= 65 && znak <= 90)
         {
