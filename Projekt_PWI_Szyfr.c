@@ -3,10 +3,10 @@
 //dekodowanie
 int main()
 {
-    FILE *plik1=fopen("test.txt","w");
+    FILE *plik1=fopen("tekst.txt","w");
     char a=(char)getchar();
-    fprintf(plik1,"%c",a);
-    FILE *wejscie1=fopen("test.txt","r");
+    //fprintf(plik1,"%c",a);
+    FILE *wejscie1=fopen("tekst.txt","r");
     while(a!='\n')
     {
         a=(char)getchar();
