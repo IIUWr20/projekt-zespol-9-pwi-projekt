@@ -56,7 +56,6 @@ void vigenereEncipher(char* key, const char* in, const char* out) {
 
 
 int main () {
-    vigenereEncipher("LEMONLEMONLE", "tekst.txt", "enctekst.txt");
     
     return 0;
 }
