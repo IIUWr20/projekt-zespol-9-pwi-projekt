@@ -13,12 +13,12 @@ void vigenereEncipher(char* key, const char* in, const char* out) {
     // encipheredFile - encoded input file  
     // enckey key - file with a key to encipher input file up to 100 characters
     if ((file = fopen(in, "r"))==NULL) {
-        printf("Otwarcie pliku tekst.txt nie było możliwe!\n");
+        printf("Otwarcie pliku %s nie było możliwe!\n", in);
         exit(1);
     }
 
     if ((encipheredFile = fopen(out, "w"))==NULL) {
-        printf("Otwarcie pliku enctekst.txt nie było możliwe!\n");
+        printf("Otwarcie pliku %s nie było możliwe!\n", out);
         exit(1);
     }
 
