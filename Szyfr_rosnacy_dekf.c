@@ -7,6 +7,7 @@ int main()
 {
     //Łączenie się z plikiem wejściowym
     FILE *plik=fopen("tekst.txt","r");
+    FILE *wyjscie=fopen("wynik.txt","w");
     int wartosc = 0;
     char znak=fgetc(plik);
     while(znak!=EOF)
@@ -37,7 +38,7 @@ int main()
         }
 // Wypisujemy na konsolę odszyfrowany teskt jeśli trzeba mogę poprawić to aby działało z plikiem tj. wypisywało odszyfrowany tekst do nowego pliku
         wartosc++;
-        printf("%c",znak);
+        fprintf(wyjscie,"%c",znak);
         znak = fgetc(plik);
         // Zamyka program po wpisaniu znaku "/"
         if(znak==47)
