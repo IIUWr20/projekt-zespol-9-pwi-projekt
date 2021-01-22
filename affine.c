@@ -5,16 +5,19 @@
 
 char *decipher(char *text, int k1, int k2)
 {
-	int l = strlen(text), i = 0, inv = modInverse(k1, LEN);;
-	char *res = (char *) malloc(l), in;
+	int l = strlen(text), i = 0, inv = modInverse(k1, LEN); 
+	// calculate inverse of modulo function of k1 modulo LEN
+	char *res = (char *) malloc(l), in; // used if user also wants output on screen
 	FILE *f1 = fopen("input.txt", "r"), *f2 = fopen("output.txt", "w");
+	// open two files, first containing input and second output
 
-	while ((in = getc(f1)) != EOF)
+	while ((in = getc(f1)) != EOF) // read from file
 	{
 		int tmp;
 		char c;
-		int t = checkRange(text[i]);
+		int t = checkRange(text[i]); // check if uppercase, lowercase or something else
 
+		// decipher and write to res
 		switch(t)
 		{
 			case 0:
@@ -41,6 +44,7 @@ char *decipher(char *text, int k1, int k2)
 
 		t = checkRange(in);
 
+		// same as above but write to file
 		switch(t)
 		{
 			case 0:
@@ -67,7 +71,7 @@ char *decipher(char *text, int k1, int k2)
 	return res;
 }
 
-int modInverse(int a, int m) 
+int modInverse(int a, int m) // calculate inverse of first key modulo LEN
 { 
 	int x, y; 
 	int g = extendedGCD(a, m, &x, &y); 
@@ -77,11 +81,14 @@ int modInverse(int a, int m)
 		exit(0);
 	}
 
-	int res = (x % m + m) % m; 
+	int res = (x % m + m) % m; // this instead of just x % m to
+	// avoid getting negative values, same as in decipher()
 	return res;
  
 } 
 
+// recursive implementation of extended Euclid's algorithm
+// to get the value of gcd and x
 int extendedGCD(int a, int b, int* x, int* y) 
 { 
 	if (a == 0) 
@@ -99,6 +106,8 @@ int extendedGCD(int a, int b, int* x, int* y)
 	return gcd; 
 } 
 
+// helper function for better readability to 
+// check if uppercase, lowercase or something else
 int checkRange(char c)
 {
 	if (c >= START_UPPER && c <= END_UPPER)

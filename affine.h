@@ -1,3 +1,5 @@
+// file containing definitions and constants
+// to make use of modularity
 #ifndef AFFINE_H_INCLUDED
 #define AFFINE_H_INCLUDED
 
