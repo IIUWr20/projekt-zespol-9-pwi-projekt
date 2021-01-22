@@ -1,12 +1,29 @@
-
 #include <stdio.h>
 #include <string.h>
 
 //Szyfrowanie
-int cipher(char *text,char *result,int k1,int k2)
+#define N 50
+int main()
 {
+    char text[N];
+    FILE *plik;
+    plik=fopen("tekst.txt","r");
+    FILE *wyjscie;
+    wyjscie=fopen("nik.txt","w");
+
+    fgets(text, N, plik);
+    fprintf(stdout, "%s\n", text);
+
+    char result[N];
+    int k1,k2;
+    k1=3;
+    k2=5; 
+    
+   
     int i,z=0;
-    int l = strlen(text); // długość tekstu 
+    int l = strlen(text); 
+   // długość tekstu 
+
     for(i=0;i<l;i++)
     {
         if (text[i] >= 'A' && text[i] <= 'Z'){
@@ -18,26 +35,16 @@ int cipher(char *text,char *result,int k1,int k2)
         }
         z++;
     }
-    return 0;
-}
+    int m=0;
+    while(m<l){
+    fprintf(wyjscie,"%c", result[m]);
+    m++;}
 
-int main()
-{
-    char text[50]="";
-    char result[50]="";
-    int k1,k2;
-    
-    printf("Proszę wpisać tekst\n");
-    scanf("%[^\n]",text);
-   
-        printf("Proszę wpisać klucz k1\n");
-        scanf("%d",&k1);
-        printf("Proszę wpisać klucz k2\n");
-        scanf("%d",&k2);
-        cipher(text,result,k1,k2);
-        printf("Zaszyfrowany tekst jawny %s jest: %s\n",text,result);
-    
+    fclose(plik);
+    fclose(wyjscie);
+
 
     return 0;
-   
-    }
+
+   }
+
