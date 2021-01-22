@@ -15,7 +15,7 @@ int checkRange(char c);
 
 int main()
 {
-	char *text = "XZI xzi";
+	char *text = "XZI xzi co to ja nie wiem";
 	printf("%s\n", decipher(text, 7, 5));
 }
 
@@ -38,11 +38,11 @@ char *decipher(char *text, int k1, int k2)
 				break;
 			case 1:
 				tmp = (int) (text[i] - START_UPPER) - k2;
-				c = (char) ((inv * tmp) % LEN) + START_UPPER;
+				c = (char) (((inv * tmp) % LEN + LEN)) % LEN + START_UPPER;
 				break;
 			case 2:
 				tmp = (int) (text[i] - START_LOWER) - k2;
-				c = (char) ((inv * tmp) % LEN) + START_LOWER;
+				c = (char) (((inv * tmp) % LEN + LEN)) % LEN + START_LOWER;
 				break;
 			default:
 				printf(u8"Jakiś błąd");
