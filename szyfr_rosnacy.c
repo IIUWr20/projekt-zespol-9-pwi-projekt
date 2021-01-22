@@ -4,11 +4,11 @@
 
 int main()
 {
+    FILE *plik=fopen("tekst.txt","r");
+    FILE *wyjscie=fopen("wynik.txt","w");
     int wartosc = 0;
-    char znak;
-    znak = getc(stdin);
-    while(true){
-
+    char znak=fgetc(plik);
+    while(znak!=EOF){
         //Sprawdzamy czy nie powrocilismy do pierwotnej litery
         if(wartosc==27)
             wartosc = 1;
@@ -37,12 +37,10 @@ int main()
         }
 
         wartosc++;
-        printf("%c",znak);
-        znak = getc(stdin);
-
-        // Zamyka program po wpisaniu znaku "/"
-        if(znak==47){
-            return 0;
-        }
+        fprintf(wyjscie,"%c",znak);
+        znak = getc(plik);
     }
+    fclose(plik);
+    fclose(wyjscie);
+    return 0;
 }
