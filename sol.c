@@ -1,11 +1,17 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
 #define LEN 26
+#define START_UPPER 'A'
+#define END_UPPER 'Z'
+#define START_LOWER 'a'
+#define END_LOWER 'z'
 
 char *decipher(char *text, int k1, int k2);
 int modInverse(int a, int m) ;
 int extendedGCD(int a, int b, int* x, int* y);
+int checkRange(char c);
 
 int main()
 {
@@ -15,29 +21,64 @@ int main()
 
 char *decipher(char *text, int k1, int k2)
 {
-	int l = strlen(text);
-	char* res = (char *) malloc(l);
-	int inv = modInverse(k1, LEN);
+	int l = strlen(text), i = 0, inv = modInverse(k1, LEN);;
+	char *res = (char *) malloc(l), in;
+	FILE *f1 = fopen("input.txt", "r"), *f2 = fopen("output.txt", "w");
 
-	for (int i = 0; i < l; ++i)
+	while ((in = getc(f1)) != EOF)
 	{
-		if (text[i] >= 'A' && text[i] <= 'Z')
+		int tmp;
+		char c;
+		int t = checkRange(text[i]);
+
+		switch(t)
 		{
-			int tmp = (int) (text[i] - 'A') - k2;
-			res[i] = (char) ((inv * tmp) % LEN) + 'A';
+			case 0:
+				c = text[i];
+				break;
+			case 1:
+				tmp = (int) (text[i] - START_UPPER) - k2;
+				c = (char) ((inv * tmp) % LEN) + START_UPPER;
+				break;
+			case 2:
+				tmp = (int) (text[i] - START_LOWER) - k2;
+				c = (char) ((inv * tmp) % LEN) + START_LOWER;
+				break;
+			default:
+				printf(u8"Jakiś błąd");
 		}
 
-		else if (text[i] >= 'a' && text[i] <= 'z')
+		res[i] = c;
+
+		if (i < l)
 		{
-			int tmp = (int) (text[i] - 'a') - k2;
-			res[i] = (char) ((inv * tmp) % LEN) + 'a';
+			++i;
 		}
-		
-		else
+
+		t = checkRange(in);
+
+		switch(t)
 		{
-			res[i] = text[i];
+			case 0:
+				c = in;
+				break;
+			case 1:
+				tmp = (int) (in - START_UPPER) - k2;
+				c = (char) ((inv * tmp) % LEN) + START_UPPER;
+				break;
+			case 2:
+				tmp = (int) (in - START_LOWER) - k2;
+				c = (char) ((inv * tmp) % LEN) + START_LOWER;
+				break;
+			default:
+				printf(u8"Jakiś błąd \n");
 		}
+
+		putc(c, f2);
 	}
+
+	fclose(f1);
+	fclose(f2);
 
 	return res;
 }
@@ -73,3 +114,18 @@ int extendedGCD(int a, int b, int* x, int* y)
 
 	return gcd; 
 } 
+
+int checkRange(char c)
+{
+	if (c >= START_UPPER && c <= END_UPPER)
+	{
+		return 1;
+	}
+
+	if (c >= START_LOWER && c <= END_LOWER)
+	{
+		return 2;
+	}
+
+	return 0;
+}
