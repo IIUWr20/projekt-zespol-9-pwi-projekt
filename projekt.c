@@ -9,7 +9,7 @@ int main()
     FILE *plik;
     plik=fopen("tekst.txt","r");
     FILE *wyjscie;
-    wyjscie=fopen("nik.txt","w");
+    wyjscie=fopen("wynik.txt","w");
 
     fgets(text, N, plik);
     fprintf(stdout, "%s\n", text);
