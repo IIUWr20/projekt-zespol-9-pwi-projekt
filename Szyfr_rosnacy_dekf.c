@@ -48,5 +48,6 @@ int main()
         }
     }
     fclose(plik);
+    fclose(wyjscie);
     return 0;
 }
