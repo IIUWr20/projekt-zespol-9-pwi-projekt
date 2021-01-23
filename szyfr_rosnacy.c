@@ -2,13 +2,14 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-int main()
+//funkcja szyfrująca
+void szyfr_rosnacy(const char* in, const char* out)
 {
+    FILE *plik=fopen(in,"r");
+    FILE *wyjscie=fopen(out,"w");
     int wartosc = 0;
-    char znak;
-    znak = getc(stdin);
-    while(true){
-
+    char znak=fgetc(plik);
+    while(znak!=EOF){
         //Sprawdzamy czy nie powrocilismy do pierwotnej litery
         if(wartosc==27)
             wartosc = 1;
@@ -37,12 +38,14 @@ int main()
         }
 
         wartosc++;
-        printf("%c",znak);
-        znak = getc(stdin);
-
-        // Zamyka program po wpisaniu znaku "/"
-        if(znak==47){
-            return 0;
-        }
+        fprintf(wyjscie,"%c",znak);
+        znak = getc(plik);
     }
+    fclose(plik);
+    fclose(wyjscie);
+}
+
+int main() {
+ 
+    return 0;
 }
