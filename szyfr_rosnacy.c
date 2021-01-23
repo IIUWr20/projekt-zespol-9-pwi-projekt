@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-int main()
+//funkcja szyfrująca
+void szyfr_rosnacy(const char* in, const char* out)
 {
-    FILE *plik=fopen("tekst.txt","r");
-    FILE *wyjscie=fopen("wynik.txt","w");
+    FILE *plik=fopen(in,"r");
+    FILE *wyjscie=fopen(out,"w");
     int wartosc = 0;
     char znak=fgetc(plik);
     while(znak!=EOF){
@@ -42,5 +43,9 @@ int main()
     }
     fclose(plik);
     fclose(wyjscie);
+}
+
+int main() {
+ 
     return 0;
 }
