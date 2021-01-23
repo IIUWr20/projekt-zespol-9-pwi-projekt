@@ -3,11 +3,11 @@
 #include <stdbool.h>
 
 //Dekodowanie na pliku działa aktualnie na pliku o nazwie "tekst.txt" który musi się znajdować w tym samym folderze co program
-int main()
+void szyfr_rosnacy(const char* in, const char* out)
 {
     //Łączenie się z plikiem wejściowym
-    FILE *plik=fopen("tekst.txt","r");
-    FILE *wyjscie=fopen("wynik.txt","w");
+    FILE *plik=fopen(in,"r");
+    FILE *wyjscie=fopen(out,"w");
     int wartosc = 0;
     char znak=fgetc(plik);
     while(znak!=EOF)
@@ -44,10 +44,14 @@ int main()
         if(znak==47)
         {
             fclose(plik);
-            return 0;
+            return;
         }
     }
     fclose(plik);
-    fclose(wyjscie);
+    fclose(wyjscie);   
+}
+
+int main () {
+    
     return 0;
 }
