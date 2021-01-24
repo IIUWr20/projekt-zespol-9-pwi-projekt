@@ -1,2 +1,4 @@
 *.txt
 *.out
+/cmake-build-debug/
+.idea

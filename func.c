@@ -155,7 +155,7 @@ void vigenere_decipher(char* key, const char* in_path, const char* out_path)
     char c;
     while ((c = getc(in_file)) != EOF)
     {
-        if (c == ' ' || c == '\n') {
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
             putc(c, out_file);
             continue;
         }
