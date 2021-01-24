@@ -127,7 +127,7 @@ void vigenereEncipher(char* key, const char* in, const char* out) {
                 enc += 65;
             }
 
-            fputc(toupper((char)enc), encipheredFile);
+            fputc((char)enc, encipheredFile);
         }
 
         else
