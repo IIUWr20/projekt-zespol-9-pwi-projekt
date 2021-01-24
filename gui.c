@@ -45,8 +45,10 @@ static void open_dialog(GtkWidget* button, gpointer data){
     GtkWidget *dialog = gtk_file_chooser_dialog_new("Wybierz plik", GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_OPEN,"Wybierz",GTK_RESPONSE_ACCEPT,"Anuluj",GTK_RESPONSE_REJECT,NULL);
     gtk_widget_show_all(dialog);
     gint resp=gtk_dialog_run(GTK_DIALOG(dialog));
-    if(resp==GTK_RESPONSE_ACCEPT)
+    if(resp==GTK_RESPONSE_ACCEPT) {
         plik = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+        gtk_button_set_label(GTK_BUTTON(button), plik);
+    }
     gtk_widget_destroy(dialog);
 }
 
