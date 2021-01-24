@@ -54,8 +54,8 @@ static void open_dialog(GtkWidget* button, gpointer data){
 
 static char* save_dialog(){
     GtkWidget *dialog = gtk_file_chooser_dialog_new("Zapisz do...", GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_SAVE,"Wybierz",GTK_RESPONSE_ACCEPT,"Anuluj",GTK_RESPONSE_REJECT,NULL);
-    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog), "wynik.txt");
     gtk_widget_show_all(dialog);
+    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog), "wynik.txt");
     gint resp=gtk_dialog_run(GTK_DIALOG(dialog));
     char* plik_out = NULL;
     if(resp==GTK_RESPONSE_ACCEPT)
