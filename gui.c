@@ -94,7 +94,7 @@ int main(int argc,char *argv[]){
     GtkWidget *szyfr2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,5);
     GtkWidget *szyfr3 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,5);
 
-    GtkWidget *vinegere = gtk_radio_button_new_with_label(NULL,"Szyfr Vinegere");
+    GtkWidget *vinegere = gtk_radio_button_new_with_label(NULL,"Szyfr Vigenere");
     GtkWidget *afiniczny = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(vinegere),"Szyfr Afiniczny");
     GtkWidget *rosnacy = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(vinegere),"Szyfr Rosnacy");
 
