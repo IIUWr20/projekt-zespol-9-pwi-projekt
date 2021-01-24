@@ -110,7 +110,7 @@ int main(int argc,char *argv[]){
     g_signal_connect(szyfrujacy,"toggled",G_CALLBACK(toggled_typ),(gpointer)"1");
     g_signal_connect(deszyfrujacy,"toggled",G_CALLBACK(toggled_typ),(gpointer)"2");
 
-    GtkWidget *tekst = gtk_label_new("Wybierz preferowany szyfr i czy ma zasyfrowac czy odszyfrowac plik");
+    GtkWidget *tekst = gtk_label_new("Wybierz preferowany szyfr i czy ma zaszyfrowac czy odszyfrowac plik");
 
     GtkWidget *klucz = gtk_entry_new();
     GtkWidget *klucz_opis = gtk_label_new("klucz:");
