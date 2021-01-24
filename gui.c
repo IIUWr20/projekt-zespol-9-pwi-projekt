@@ -5,6 +5,7 @@ int a;
 int b;
 char *plik;
 int wybor[2] = {1,1};
+GtkWidget *window = NULL;
 
 static void toggled_rodzaj(GtkWidget* widget,gpointer data){
     if(strcmp((char*)data,"1")==0){
@@ -40,8 +41,8 @@ static void value_changed_b(GtkWidget* widget,gpointer data){
     b = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget));
 }
 
-static void open_dialog(GtkWidget* button,gpointer window){
-    GtkWidget *dialog = gtk_file_chooser_dialog_new("Wybierz plik",GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_OPEN,"Wybierz",GTK_RESPONSE_ACCEPT,"Anuluj",GTK_RESPONSE_REJECT,NULL);
+static void open_dialog(GtkWidget* button, gpointer data){
+    GtkWidget *dialog = gtk_file_chooser_dialog_new("Wybierz plik", GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_OPEN,"Wybierz",GTK_RESPONSE_ACCEPT,"Anuluj",GTK_RESPONSE_REJECT,NULL);
     gtk_widget_show_all(dialog);
     gint resp=gtk_dialog_run(GTK_DIALOG(dialog));
     if(resp==GTK_RESPONSE_ACCEPT)
@@ -49,37 +50,55 @@ static void open_dialog(GtkWidget* button,gpointer window){
     gtk_widget_destroy(dialog);
 }
 
-static void rozpocznij(GtkWidget* widget,gpointer data){
+static char* save_dialog(){
+    GtkWidget *dialog = gtk_file_chooser_dialog_new("Zapisz do...", GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_SAVE,"Wybierz",GTK_RESPONSE_ACCEPT,"Anuluj",GTK_RESPONSE_REJECT,NULL);
+    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog), "wynik.txt");
+    gtk_widget_show_all(dialog);
+    gint resp=gtk_dialog_run(GTK_DIALOG(dialog));
+    char* plik_out = NULL;
+    if(resp==GTK_RESPONSE_ACCEPT)
+        plik_out = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+    gtk_widget_destroy(dialog);
+
+    return plik_out;
+}
+
+static void rozpocznij(GtkWidget* widget, gpointer data){
+    char* plik_out = save_dialog();
+
+    if (plik_out == NULL)
+        return;
+
     if(wybor[0]==1){
         const char *text = gtk_entry_get_text(GTK_ENTRY(data));
         if(wybor[1]==1){
-            vigenereEncipher((char*)text,plik,"wynik.txt");
+            vigenereEncipher((char*)text,plik,plik_out);
         }
         else if(wybor[1]==2){
-            vigenere_decipher((char*)text,plik,"wynik.txt");
+            vigenere_decipher((char*)text,plik,plik_out);
         }
     }
     else if(wybor[0]==2){
         if(wybor[1]==1){
-            szyfr_afiniczny(plik,"wynik.txt",a,b);
+            szyfr_afiniczny(plik,plik_out,a,b);
         }
         else if(wybor[1]==2){
-            decipher(plik,"wynik.txt",a,b);
+            decipher(plik,plik_out,a,b);
         }
     }
     else if(wybor[0]==3){
         if(wybor[1]==1){
-            szyfr_rosnacy(plik,"wynik.txt");
+            szyfr_rosnacy(plik,plik_out);
         }
         else if(wybor[1]==2){
-            de_szyfr_rosnacy(plik,"wynik.txt");
+            de_szyfr_rosnacy(plik,plik_out);
         }
     }
 }
 
 int main(int argc,char *argv[]){
     gtk_init(&argc, &argv);
-    GtkWidget *window=gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window),"Program Szyfrujacy/Deszyfrujacy");
     gtk_window_set_position(GTK_WINDOW(window),GTK_WIN_POS_CENTER);
     gtk_container_set_border_width(GTK_CONTAINER(window), 30);
@@ -125,10 +144,10 @@ int main(int argc,char *argv[]){
     g_signal_connect(zmiennab,"value-changed",G_CALLBACK(value_changed_b),NULL);
 
     GtkWidget *start = gtk_button_new_with_label("Rozpocznij Proces");
-    g_signal_connect(G_OBJECT(start),"clicked",G_CALLBACK(rozpocznij),klucz);
+    g_signal_connect(G_OBJECT(start),"clicked",G_CALLBACK(rozpocznij), klucz);
 
     GtkWidget *wplik = gtk_button_new_with_label("Wybierz plik");
-    g_signal_connect(G_OBJECT(wplik),"clicked",G_CALLBACK(open_dialog),window);
+    g_signal_connect(G_OBJECT(wplik),"clicked",G_CALLBACK(open_dialog), NULL);
 
     gtk_container_add(GTK_CONTAINER(window), okno);
     gtk_container_add(GTK_CONTAINER(okno),tekst);
