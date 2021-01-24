@@ -2,6 +2,7 @@
 
 int a;
 int b;
+char *plik;
 
 static void toggled_rodzaj(GtkWidget* widget,gpointer data){
 
@@ -19,10 +20,21 @@ static void value_changed_b(GtkWidget* widget,gpointer data){
     b = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget));
 }
 
+static void open_dialog(GtkWidget* button,gpointer window){
+    GtkWidget *dialog = gtk_file_chooser_dialog_new("Wybierz plik",GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_OPEN,"Wybierz",GTK_RESPONSE_ACCEPT,"Anuluj",GTK_RESPONSE_REJECT,NULL);
+    gtk_widget_show_all(dialog);
+    gint resp=gtk_dialog_run(GTK_DIALOG(dialog));
+    if(resp==GTK_RESPONSE_ACCEPT)
+        plik = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+    gtk_widget_destroy(dialog);
+}
+
 static void rozpocznij(GtkWidget* widget,gpointer data){
-    //const char *text = gtk_entry_get_text(GTK_ENTRY(data));
-    g_print("%i",a);
-    g_print("%i",b);
+    const char *text = gtk_entry_get_text(GTK_ENTRY(data));
+    g_print("%s\n",text);
+    g_print("%i\n",a);
+    g_print("%i\n",b);
+    g_print("%s\n",plik);
 }
 
 int main(int argc,char *argv[]){
@@ -70,8 +82,12 @@ int main(int argc,char *argv[]){
     GtkWidget *start = gtk_button_new_with_label("Rozpocznij Proces");
     g_signal_connect(G_OBJECT(start),"clicked",G_CALLBACK(rozpocznij),klucz);
 
+    GtkWidget *wplik = gtk_button_new_with_label("Wybierz plik");
+    g_signal_connect(G_OBJECT(wplik),"clicked",G_CALLBACK(open_dialog),window);
+
     gtk_container_add(GTK_CONTAINER(window), okno);
     gtk_container_add(GTK_CONTAINER(okno),tekst);
+    gtk_container_add(GTK_CONTAINER(okno),wplik);
     gtk_container_add(GTK_CONTAINER(okno),szyfr1);
     gtk_container_add(GTK_CONTAINER(okno),szyfr2);
     gtk_container_add(GTK_CONTAINER(okno),szyfr3);
