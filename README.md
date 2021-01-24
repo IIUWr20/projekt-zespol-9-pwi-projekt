@@ -1,7 +1,7 @@
- Projekt PWI zespołu 9 w języku C
+# Projekt PWI zespołu 9 w języku C
 To repozytorium zawiera program szyfrujący lub deszyfrujący wprowadzone 
-wiadomości przy użyciu jednego z trzech szyfrów (Vigenera, afinicznego 
-lub placeholder) napisany w języku ANSI C w standardzie C11.
+wiadomości przy użyciu jednego z trzech szyfrów (Vigenère'a, afinicznego 
+lub rosnącego) napisany w języku ANSI C w standardzie C11.
 
 ## Spis treści
 - [Instalacja programu szyfrującego](#instalacja-programu-szyfrującego)
@@ -9,19 +9,21 @@ lub placeholder) napisany w języku ANSI C w standardzie C11.
 		- [Linux](#linux)
 		- [Windows](#windows)
 		- [macOS](#macos)
-	- [Pobieranie kodu](#pobieranie-kodu-i-instalacja)
+	- [Pobieranie kodu i instalacja](#pobieranie-kodu-i-instalacja)
 - [Użytkowanie](#użytkowanie)
 	- [Szyfrowanie](#szyfrowanie)
 		- [Szyfr afiniczny](#szyfr-afiniczny)
 		- [Szyfr Vigenèr'a](#szyfr-vigenèra)
+		- [Szyfr rosnący](#szyfr-rosnacy)
 	- [Deszyfrowanie](#deszyfrowanie)
 - [Autorzy](#autorzy)
 
 ## Instalacja programu szyfrującego
 ### Wymagania wstępne
 #### Linux
-- git (preferowalnie) >= 2.25.0
-- gcc (preferowalnie) >= 9.0.0
+- git >= 2.25.0
+- gcc >= 9.0.0
+- gtk >= 3.0
 
 Ponieważ przy użyciu tych wersji technologii projekt był tworzony.
 Żeby je pobrać wystarczy otworzyć terminal i wpisać:
@@ -34,9 +36,11 @@ sudo pacman -S git gcc
 ```
 na Archu i pochodnych
 #### Windows
-- git
+- git >= 2.25.0
+- gcc? >= 9.0.0
+- gtk >= 3.0
 
-Można go pobrać z <https://git-scm.com/download/win>
+Gita można pobrać z <https://git-scm.com/download/win>
 #### macOS
 Program nie był testowany na macOS. Zapewne wymagałby jakiegoś 
 kompilatora języka C i gita.
@@ -47,26 +51,30 @@ Należy otworzyć terminal i wpisać poniższe komendy:
 ```
 git clone https://github.com/IIUWr20/projekt-zespol-9-pwi-projekt
 cd projekt-zespol-9-pwi-projekt
-gcc -std=c11 -o program program.c affine.c itd..
+gcc gui.c mod.h func.c `pkg-config --cflags --libs gtk+-3.0` -o program.out
 ```
 ## Użytkowanie
 ### Szyfrowanie
+Program przyjmuje dwa pliki (należy wskazać ich lokalizację w interefejsie graficznym) i w zależności od wybranego szyfru odpowiednie
+dodatkowe parametry. Operuje on na na alfabecie angielskim (52 różne znaki), wszystkie
+znaki spoza tego zbioru nie będą szyfrowane tylko zostaną przepisane
+do pliku wyjściowego.
 #### Szyfr afiniczny
-Program przyjmuje plik z tekstem do zaszyfrowania
-oraz $a, b \in \mathbb{N} \setminus \{0\}$, gdzie są to parametry 
-funkcji szyfrującej $f(x) = ax + b \ \text{mod} \ m$ ($m$ to rozmiar 
-alfabetu, w tym programie $m = 26$).
+Żeby szyfrowanie zadziałało poprawnie należy dodatkowo podać dwie dodatnie
+liczby naturalne, będące wartościami kluczy szyfrujących.
 
 Więcej o szyfrze afinicznym na
 <https://pl.wikipedia.org/wiki/Szyfr_afiniczny>
 #### Szyfr Vigenèr'a
+Program przyjmuje klucz (będący ciągiem znaków alfabetu angielskiego). Ten sam klucz należy podać przy deszyfrowaniu.
 Więcej o szyfrze Vigenèra na
 <https://pl.wikipedia.org/wiki/Szyfr_Vigen%C3%A8re%E2%80%99a>
+#### Szyfr rosnący
+Program przesuwa znak, jeśli jest to litera o n (początkowo n = 0) miejsc w kierunku rosnących liter. Jeśli przekroczy ostatnią literę alfabetu
+to reszta przesunięcia dokonywana jest od pierwszej litery. Po każdym przesunięciu n jest inkrementowane o jeden. Jeśli n = 27, to z powrotem n = 0.
 ### Deszyfrowanie
-Żeby odszyfrować wiadomość należy podać programowi lokalizację pliku 
-wejściowego z zaszyfrowananym tekstem oraz preferowaną lokalizację pliku wyjściowego. 
-Należy także podać klucz, przy użyciu którego oryginalny tekst był
-przekształcony.
+Analogicznie jak w przypadku szyfrowania. Należy pamiętać o tym, by podać
+odpowiednie parametry, przy użyciu których oryginalny tekst był zaszyfrowany.
 
 ## Autorzy
 - Kacper Jóźwiak
