@@ -61,7 +61,7 @@ static void rozpocznij(GtkWidget* widget,gpointer data){
     }
     else if(wybor[0]==2){
         if(wybor[1]==1){
-            g_print("Wybrales szyfr afiniczny");
+            szyfr_afiniczny(plik,"wynik.txt",a,b);
         }
         else if(wybor[1]==2){
             decipher(plik,"wynik.txt",a,b);

@@ -132,9 +132,9 @@ void vigenereEncipher(char* key, const char* in, const char* out) {
 
         else
             fputc(c, encipheredFile);
-	
+
 	if (!isspace(c)) keyptr++;
-	    
+
         if (*keyptr == '\0')
             keyptr = key;
     }
@@ -177,30 +177,25 @@ void vigenere_decipher(char* key, const char* in_path, const char* out_path)
     fclose(in_file);
 }
 
-void szyfr_afiniczny(const char* in, const char* out)
+void szyfr_afiniczny(const char* in, const char* out, int k1, int k2)
 {
-FILE *plik;
-FILE *wyjscie;
-wyjscie=fopen(out,"w");
-
+    FILE* in_file = fopen(in, "r");
+    FILE* out_file = fopen(out, "w");
 char text;
 
-if ((plik = fopen("tekst.txt","r")) == NULL)
+if ((in_file = fopen(in,"r")) == NULL)
 {
 printf("Error opening file ");
-exit(1); /* wyjście z programu w 
+exit(1); /* wyjście z programu w
 przypadku błędu otwarcia pliku tekst.txt*/
 }
 
-while(feof(plik)==0)
+while(feof(in_file)==0)
 {
-text = fgetc(plik); 
-    
+text = fgetc(in_file);
+
 char result;
-    int k1,k2;
-    k1=3;
-    k2=5; 
-    
+
 
         if (text >= 'A' && text <= 'Z'){
             result=(k1*(text-'A')+k2)%26+'A';
@@ -209,14 +204,14 @@ char result;
         } else{
             result = text;
         }
-    
 
-     fprintf(wyjscie,"%c",result);
-     
+
+     fprintf(out_file,"%c",result);
+
 }
 
-fclose(plik);
-fclose(wyjscie);
+fclose(in_file);
+fclose(out_file);
 }
 
 // function deciphering affine ciphered file
