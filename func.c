@@ -2,8 +2,9 @@
 //Program using various ciphers to either encipher a file given by the user or decipher it
 
 #include "mod.h"
+#include "func.h"
 
-//funkcja deszyfrujaca 
+//funkcja deszyfrujaca
 void de_szyfr_rosnacy (const char* in, const char* out) {
      //Łączenie się z plikiem wejściowym
     FILE *plik=fopen(in,"r");
@@ -51,7 +52,7 @@ void de_szyfr_rosnacy (const char* in, const char* out) {
     fclose(wyjscie);
 }
 
-//funkcja szyfrująca 
+//funkcja szyfrująca
 void szyfr_rosnacy(const char* in, const char* out)
 {
     FILE *plik=fopen(in,"r");
@@ -98,8 +99,8 @@ void szyfr_rosnacy(const char* in, const char* out)
 // key is used to encipher a file that user types in, in is input file name, out is output file name
 void vigenereEncipher(char* key, const char* in, const char* out) {
     FILE *file, *encipheredFile;
-    // file - input file 
-    // encipheredFile - cipher file  
+    // file - input file
+    // encipheredFile - cipher file
     if ((file = fopen(in, "r"))==NULL) {
         printf("Otwarcie pliku %s nie było możliwe!\n", in);
         exit(1);
@@ -110,10 +111,10 @@ void vigenereEncipher(char* key, const char* in, const char* out) {
         exit(1);
     }
 
-    char* keyptr = key; //pointer to keyword 
+    char* keyptr = key; //pointer to keyword
     char c; // variable storing character fromm input file processed at the moment
-    int enc; 
-    
+    int enc;
+
     while ((c = fgetc(file)) != EOF) {
         if (isalpha(c)) { //checking whether char is a letter or not
             if (islower(c)) { // checking if letter is uppercase or lowercase
@@ -128,21 +129,21 @@ void vigenereEncipher(char* key, const char* in, const char* out) {
             fputc((char)enc, encipheredFile);
         }
 
-        else 
+        else
             fputc(c, encipheredFile);
-        
-        if (keyptr == "\0")
+
+        if (keyptr == NULL)
             keyptr = key;
 
         keyptr++;
     }
-    
+
 
     fclose(file);
     fclose(encipheredFile);
 }
 
-// function deciphering file ciphered with Vigenere 
+// function deciphering file ciphered with Vigenere
 void vigenere_decipher(char* key, const char* in_path, const char* out_path)
 {
     FILE* in_file = fopen(in_path, "r");
@@ -178,7 +179,7 @@ void vigenere_decipher(char* key, const char* in_path, const char* out_path)
 // function deciphering affine ciphered file
 char *decipher(const char* in_path, const char* out_path, char *text, int k1, int k2)
 {
-	int l = strlen(text), i = 0, inv = modInverse(k1, LEN); 
+	int l = strlen(text), i = 0, inv = modInverse(k1, LEN);
 	// calculate inverse of modulo function of k1 modulo LEN
 	char *res = (char *) malloc(l), in; // used if user also wants output on screen
 	FILE *f1 = fopen(in_path, "r"), *f2 = fopen(out_path, "w");
@@ -245,41 +246,41 @@ char *decipher(const char* in_path, const char* out_path, char *text, int k1, in
 }
 
 int modInverse(int a, int m) // calculate inverse of first key modulo LEN
-{ 
-	int x, y; 
-	int g = extendedGCD(a, m, &x, &y); 
-	if (g != 1) 
+{
+	int x, y;
+	int g = extendedGCD(a, m, &x, &y);
+	if (g != 1)
 	{
-		printf(u8"Błąd, żądana wartość nie istnieje."); 
+		printf(u8"Błąd, żądana wartość nie istnieje.");
 		exit(0);
 	}
 
 	int res = (x % m + m) % m; // this instead of just x % m to
 	// avoid getting negative values, same as in decipher()
 	return res;
- 
-} 
+
+}
 
 // recursive implementation of extended Euclid's algorithm
 // to get the value of gcd and x
-int extendedGCD(int a, int b, int* x, int* y) 
-{ 
-	if (a == 0) 
-	{ 
-		*x = 0, *y = 1; 
-		return b; 
-	} 
+int extendedGCD(int a, int b, int* x, int* y)
+{
+	if (a == 0)
+	{
+		*x = 0, *y = 1;
+		return b;
+	}
 
 	int x1, y1;
-	int gcd = extendedGCD(b % a, a, &x1, &y1); 
+	int gcd = extendedGCD(b % a, a, &x1, &y1);
 
-	*x = y1 - (b / a) * x1; 
-	*y = x1; 
+	*x = y1 - (b / a) * x1;
+	*y = x1;
 
-	return gcd; 
-} 
+	return gcd;
+}
 
-// helper function for better readability to 
+// helper function for better readability to
 // check if uppercase, lowercase or something else
 int checkRange(char c)
 {
@@ -294,16 +295,6 @@ int checkRange(char c)
 	}
 
 	return 0;
-}
-
-
-
-
-
-int main() {
-    
-
-    return 0;
 }
 
 

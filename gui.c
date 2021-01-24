@@ -1,15 +1,35 @@
 #include<gtk/gtk.h>
+#include "func.h"
 
 int a;
 int b;
 char *plik;
+int wybor[2] = {1,1};
 
 static void toggled_rodzaj(GtkWidget* widget,gpointer data){
-
+    if(strcmp((char*)data,"1")==0){
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)))
+            wybor[0]=1;
+    }
+    else if(strcmp((char*)data,"2")==0){
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)))
+            wybor[0]=2;
+    }
+    else if(strcmp((char*)data,"3")==0){
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)))
+            wybor[0]=3;
+    }
 }
 
 static void toggled_typ(GtkWidget* widget,gpointer data){
-
+    if(strcmp((char*)data,"1")==0){
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)))
+            wybor[1]=1;
+    }
+    else if(strcmp((char*)data,"2")==0){
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)))
+            wybor[1]=2;
+    }
 }
 
 static void value_changed_a(GtkWidget* widget,gpointer data){
@@ -30,11 +50,31 @@ static void open_dialog(GtkWidget* button,gpointer window){
 }
 
 static void rozpocznij(GtkWidget* widget,gpointer data){
-    const char *text = gtk_entry_get_text(GTK_ENTRY(data));
-    g_print("%s\n",text);
-    g_print("%i\n",a);
-    g_print("%i\n",b);
-    g_print("%s\n",plik);
+    if(wybor[0]==1){
+        const char *text = gtk_entry_get_text(GTK_ENTRY(data));
+        if(wybor[1]==1){
+            vigenereEncipher(text,plik,"wynik.txt");
+        }
+        else if(wybor[1]==2){
+            vigenere_decipher(text,plik,"wynik.txt");
+        }
+    }
+    else if(wybor[0]==2){
+        if(wybor[1]==1){
+            g_print("Wybrales szyfr afiniczny");
+        }
+        else if(wybor[1]==2){
+            decipher(plik,"wynik.txt", char *text,a,b)
+        }
+    }
+    else if(wybor[0]==3){
+        if(wybor[1]==1){
+            szyfr_rosnacy(plik,"wynik.txt");
+        }
+        else if(wybor[1]==2){
+            de_szyfr_rosnacy(plik,"wynik.txt");
+        }
+    }
 }
 
 int main(int argc,char *argv[]){
