@@ -136,7 +136,7 @@ void vigenereEncipher(char* key, const char* in, const char* out) {
         if (keyptr == NULL)
             keyptr = key;
 
-        keyptr++;
+        if (!isspace(c)) keyptr++;
     }
 
 
