@@ -11,6 +11,7 @@ lub rosnącego) napisany w języku ANSI C w standardzie C11.
 		- [macOS](#macos)
 	- [Pobieranie kodu i instalacja](#pobieranie-kodu-i-instalacja)
 - [Użytkowanie](#użytkowanie)
+	- [UI programu](#ui-programu)
 	- [Szyfrowanie](#szyfrowanie)
 		- [Szyfr afiniczny](#szyfr-afiniczny)
 		- [Szyfr Vigenère'a](#szyfr-vigenèrea)
@@ -55,6 +56,8 @@ cd projekt-zespol-9-pwi-projekt
 gcc gui.c mod.h func.c func.h `pkg-config --cflags --libs gtk+-3.0` -o program.out
 ```
 ## Użytkowanie
+### UI programu
+![UI programu](https://imgur.com/0Ai7Iwc.png)
 ### Szyfrowanie
 Program przyjmuje dwa pliki (należy wskazać ich lokalizację w interefejsie graficznym) i w zależności od wybranego szyfru odpowiednie
 dodatkowe parametry. Operuje on na na alfabecie angielskim (52 różne znaki), wszystkie
