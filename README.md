@@ -26,7 +26,7 @@ lub rosnącego) napisany w języku ANSI C w standardzie C11.
 - gcc >= 9.0.0
 - gtk >= 3.0
 
-Ponieważ przy użyciu tych wersji technologii projekt był tworzony.
+ponieważ przy użyciu tych wersji projekt był tworzony.
 Żeby je pobrać wystarczy otworzyć terminal i wpisać:
 ```
 sudo apt install git gcc libgtk-3-dev -y
@@ -64,7 +64,7 @@ dodatkowe parametry. Operuje on na na alfabecie angielskim (52 różne znaki), w
 znaki spoza tego zbioru nie będą szyfrowane tylko zostaną przepisane
 do pliku wyjściowego.
 #### Szyfr afiniczny
-Żeby szyfrowanie zadziałało poprawnie należy dodatkowo podać dwie dodatnie liczby naturalne, z którym pierwsza nie może mieć żadnych 
+Żeby szyfrowanie zadziałało poprawnie należy dodatkowo podać dwie dodatnie liczby naturalne, z których pierwsza nie może mieć żadnych 
 dzielników wspólnych z 26, będące wartościami kluczy szyfrujących.
 
 Więcej o szyfrze afinicznym na
