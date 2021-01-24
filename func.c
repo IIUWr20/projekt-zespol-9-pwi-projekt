@@ -5,7 +5,8 @@
 #include "func.h"
 
 //funkcja deszyfrujaca
-void de_szyfr_rosnacy (const char* in, const char* out) {
+void de_szyfr_rosnacy(const char* in, const char* out)
+{
      //Łączenie się z plikiem wejściowym
     FILE *plik=fopen(in,"r");
     FILE *wyjscie=fopen(out,"w");

@@ -53,10 +53,10 @@ static void rozpocznij(GtkWidget* widget,gpointer data){
     if(wybor[0]==1){
         const char *text = gtk_entry_get_text(GTK_ENTRY(data));
         if(wybor[1]==1){
-            vigenereEncipher(text,plik,"wynik.txt");
+            vigenereEncipher((char*)text,plik,"wynik.txt");
         }
         else if(wybor[1]==2){
-            vigenere_decipher(text,plik,"wynik.txt");
+            vigenere_decipher((char*)text,plik,"wynik.txt");
         }
     }
     else if(wybor[0]==2){
@@ -64,7 +64,7 @@ static void rozpocznij(GtkWidget* widget,gpointer data){
             g_print("Wybrales szyfr afiniczny");
         }
         else if(wybor[1]==2){
-            decipher(plik,"wynik.txt", char *text,a,b)
+            decipher(plik,"wynik.txt",a,b);
         }
     }
     else if(wybor[0]==3){
