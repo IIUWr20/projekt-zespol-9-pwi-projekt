@@ -15,7 +15,7 @@
 #define START_LOWER 'a'
 #define END_LOWER 'z'
 
-char *decipher(const char* in_path, const char* out_path, char *text, int k1, int k2);
+void decipher(const char* in_path, const char* out_path, int k1, int k2);
 int modInverse(int a, int m);
 int extendedGCD(int a, int b, int* x, int* y);
 int checkRange(char c);

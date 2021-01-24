@@ -177,48 +177,23 @@ void vigenere_decipher(char* key, const char* in_path, const char* out_path)
 }
 
 // function deciphering affine ciphered file
-char *decipher(const char* in_path, const char* out_path, char *text, int k1, int k2)
+void decipher(const char* in_path, const char* out_path, int k1, int k2)
 {
-	int l = strlen(text), i = 0, inv = modInverse(k1, LEN);
+	int inv = modInverse(k1, LEN);
 	// calculate inverse of modulo function of k1 modulo LEN
-	char *res = (char *) malloc(l), in; // used if user also wants output on screen
 	FILE *f1 = fopen(in_path, "r"), *f2 = fopen(out_path, "w");
 	// open two files, first containing input and second output
+	char in;
 
 	while ((in = getc(f1)) != EOF) // read from file
 	{
 		int tmp;
 		char c;
-		int t = checkRange(text[i]); // check if uppercase, lowercase or something else
-
-		// decipher and write to res
-		switch(t)
-		{
-			case 0:
-				c = text[i];
-				break;
-			case 1:
-				tmp = (int) (text[i] - START_UPPER) - k2;
-				c = (char) (((inv * tmp) % LEN + LEN)) % LEN + START_UPPER;
-				break;
-			case 2:
-				tmp = (int) (text[i] - START_LOWER) - k2;
-				c = (char) (((inv * tmp) % LEN + LEN)) % LEN + START_LOWER;
-				break;
-			default:
-				printf(u8"Jakiś błąd");
-		}
-
-		res[i] = c;
-
-		if (i < l)
-		{
-			++i;
-		}
+		int t;
 
 		t = checkRange(in);
 
-		// same as above but write to file
+		// write to file
 		switch(t)
 		{
 			case 0:
@@ -242,7 +217,6 @@ char *decipher(const char* in_path, const char* out_path, char *text, int k1, in
 	fclose(f1);
 	fclose(f2);
 
-	return res;
 }
 
 int modInverse(int a, int m) // calculate inverse of first key modulo LEN
