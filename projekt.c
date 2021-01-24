@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main( )
+void szyfr_afiniczny(const char* in, const char* out)
 {
 FILE *plik;
-plik=fopen("tekst.txt","r");
 FILE *wyjscie;
-wyjscie=fopen("wynik.txt","w");
+wyjscie=fopen(out,"w");
 
 char text;
 
