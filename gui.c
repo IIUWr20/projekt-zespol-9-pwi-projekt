@@ -113,9 +113,14 @@ int main(int argc,char *argv[]){
     GtkWidget *tekst = gtk_label_new("Wybierz preferowany szyfr i czy ma zasyfrowac czy odszyfrowac plik");
 
     GtkWidget *klucz = gtk_entry_new();
+    GtkWidget *klucz_opis = gtk_label_new("klucz:");
 
     GtkWidget *zmiennaa = gtk_spin_button_new(GTK_ADJUSTMENT(adjustmenta),0,0);
     GtkWidget *zmiennab = gtk_spin_button_new(GTK_ADJUSTMENT(adjustmentb),0,0);
+
+    GtkWidget* zmiennaa_opis = gtk_label_new("a:");
+    GtkWidget* zmiennab_opis = gtk_label_new("b:");
+
     g_signal_connect(zmiennaa,"value-changed",G_CALLBACK(value_changed_a),NULL);
     g_signal_connect(zmiennab,"value-changed",G_CALLBACK(value_changed_b),NULL);
 
@@ -138,10 +143,23 @@ int main(int argc,char *argv[]){
     gtk_box_pack_start(GTK_BOX(szyfr2),afiniczny,FALSE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(szyfr3),rosnacy,FALSE,FALSE,0);
 
-    gtk_box_pack_start(GTK_BOX(szyfr1),klucz,TRUE,FALSE,0);
+    GtkWidget *szyfr1_parametry = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,5);
 
-    gtk_box_pack_start(GTK_BOX(szyfr2),zmiennaa,TRUE,FALSE,0);
-    gtk_box_pack_start(GTK_BOX(szyfr2),zmiennab,TRUE,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(szyfr1_parametry),klucz_opis,FALSE,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(szyfr1_parametry),klucz,FALSE,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(szyfr1),szyfr1_parametry,TRUE,FALSE,0);
+
+    GtkWidget *szyfr2_zmiennaa = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,5);
+    GtkWidget *szyfr2_zmiennab = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,5);
+
+    gtk_box_pack_start(GTK_BOX(szyfr2_zmiennaa),zmiennaa_opis,FALSE,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(szyfr2_zmiennaa),zmiennaa,FALSE,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(szyfr2_zmiennab),zmiennab_opis,FALSE,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(szyfr2_zmiennab),zmiennab,FALSE,FALSE,0);
+
+    gtk_box_pack_start(GTK_BOX(szyfr2),szyfr2_zmiennaa,TRUE,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(szyfr2),szyfr2_zmiennab,TRUE,FALSE,0);
+
 
     gtk_box_pack_start(GTK_BOX(typ),szyfrujacy,TRUE,FALSE,0);
     gtk_box_pack_start(GTK_BOX(typ),deszyfrujacy,TRUE,FALSE,0);
